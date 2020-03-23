@@ -1,13 +1,49 @@
 import React, { Component } from 'react'
+import { APIManager } from '../utils'
 
 class ListMessages extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      messages: []
+    }
+  }
+
+  componentDidMount(){
+    // const data = [
+    //                {user: 'Alice', messageBody: 'Hi!'},
+    //                {user: 'Bob', messageBody: 'Yes!'},
+    //              ]
+
+    APIManager.get('https://mymessagebo-backend.herokuapp.com/api/message', null, (err, response) => {
+      if (err) {
+        const msg = err.message || err
+        alert(msg)
+        return
+      }
+
+      console.log('componentDidMount: '+JSON.stringify(response.results))
+      const restults = response.results
+      this.setState({
+        messages: restults
+      })
+    })
+  }
+
   render(){
   	return(
       <ul className="group-list">
-        <li>Alice: What do we do for VIDEO: 1.1?</li>
-        <li>Bob: Video 1.1 is for React App: First commit with UI</li>
-        <li>Charles: Anything for code sharing in Video 1.1?</li>
-        <li>Forrest: Folder structure and UI</li>
+        {
+          this.state.messages.map((message, index) => {
+            return(
+              <li key={index} className="group-list-item">
+                {message.user}: {message.messageBody}
+                <span className="offset-2"></span>
+              </li>
+            )
+          })
+
+        }
       </ul>
   	)
   }
