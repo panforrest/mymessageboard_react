@@ -10,10 +10,6 @@ class ListMessages extends Component {
   }
 
   componentDidMount(){
-    // const data = [
-    //                {user: 'Alice', messageBody: 'Hi!'},
-    //                {user: 'Bob', messageBody: 'Yes!'},
-    //              ]
 
     APIManager.get('https://mymessagebo-backend.herokuapp.com/api/message', null, (err, response) => {
       if (err) {
