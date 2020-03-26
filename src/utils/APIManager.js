@@ -15,7 +15,7 @@ export default {
 
   	 	callback(err, response.body)
   	 })
-  }, 
+  },
 
   post: (endpoint, params, callback) => {
     superagent
@@ -30,5 +30,5 @@ export default {
 
       callback(err, response.body)
      })
-  }, 
+  },  
 }

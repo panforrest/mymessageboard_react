@@ -21,8 +21,6 @@ class AddMessage extends Component {
     this.setState({
       [name]: value
     })
-
-    // console.log('inputUpdate: '+JSON.stringify(this.state))
   }
 
   handleSubmit(event){
