@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { APIManager } from '../utils'
+import { connect } from 'react-redux'
+import actions from '../redux/actions'
 
 class AddMessage extends Component {
   constructor(props){
@@ -33,6 +35,8 @@ class AddMessage extends Component {
       }
 
       console.log('componentDidMount: '+JSON.stringify(response))
+      var result = response.result
+      this.props.messageCreated(result)
     })
   }
 
@@ -68,4 +72,16 @@ class AddMessage extends Component {
   }
 }
 
-export default AddMessage
+const stateToProps = (state) => {
+  return {
+    messages: state.message.list
+  }
+}
+
+const dispatchToProps = (dispatch) => {
+  return{
+    messageCreated: (message) => dispatch(actions.messageCreated(message))
+  }
+}
+
+export default connect(stateToProps, dispatchToProps)(AddMessage)
